@@ -104,124 +104,192 @@ CREATE TABLE Table_Name (
 ```
 
 **Question 1**
---
--- Paste Question 1 here
-
+Create a new table named item with the following specifications and constraints:
+item_id as TEXT and as primary key.
+item_desc as TEXT.
+rate as INTEGER.
+icom_id as TEXT with a length of 4.
+icom_id is a foreign key referencing com_id in the company table.
+The foreign key should cascade updates and deletes.
+item_desc and rate should not accept NULL.
 ```sql
--- Paste your SQL code below for Question 1
+create table item(
+item_id TEXT primary key,
+item_desc TEXT not null,
+rate INTEGER not null,
+icom_id TEXT check (Length(icom_id)=4),
+Foreign Key (icom_id) References company(com_id)
+on update cascade
+on delete cascade
+);
 ```
 
 **Output:**
+<img width="1239" height="397" alt="Screenshot 2025-09-29 132609" src="https://github.com/user-attachments/assets/1ec3639f-6c3d-4435-bebe-86dd3c82e87f" />
 
-![Output1](output.png)
 
 **Question 2**
 ---
--- Paste Question 2 here
+-Insert all products from Discontinued_products into Products.
 
+Table attributes are ProductID, ProductName, Price, Stock
 ```sql
--- Paste your SQL code below for Question 2
+insert into Products ('ProductId','ProductName','Price','Stock')
+select ProductId,ProductName,Price,Stock from Discontinued_products
 ```
 
 **Output:**
 
-![Output2](output.png)
+<img width="1229" height="332" alt="Screenshot 2025-09-29 133024" src="https://github.com/user-attachments/assets/d599df93-c966-49f0-a9cb-5a602b8ccdde" />
+
 
 **Question 3**
 ---
--- Paste Question 3 here
+Create a table named Products with the following constraints:
+ProductID as INTEGER should be the primary key.
+ProductName as TEXT should be unique and not NULL.
+Price as REAL should be greater than 0.
+StockQuantity as INTEGER should be non-negative.
 
 ```sql
--- Paste your SQL code below for Question 3
+create table Products(
+ProductID integer primary key,
+ProductName Text unique not null,
+Price Real check(Price>0),
+StockQuantity integer check(StockQuantity >=0) );
 ```
 
 **Output:**
 
-![Output3](output.png)
+<img width="1231" height="325" alt="Screenshot 2025-09-29 133035" src="https://github.com/user-attachments/assets/a1212aae-7bf2-45f8-84e0-faec2c529b94" />
 
 **Question 4**
 ---
--- Paste Question 4 here
+Write an SQL command can to add a column named email of type TEXT to the customers table
 
 ```sql
--- Paste your SQL code below for Question 4
+alter table customers
+add column email TEXT;
 ```
 
 **Output:**
 
-![Output4](output.png)
+<img width="1234" height="329" alt="Screenshot 2025-09-29 133047" src="https://github.com/user-attachments/assets/748b30d5-36ff-4c82-ab22-d831e4b34104" />
 
 **Question 5**
 ---
--- Paste Question 5 here
+Create a table named Employees with the following constraints:
 
+EmployeeID should be the primary key.
+FirstName and LastName should be NOT NULL.
+Email should be unique.
+Salary should be greater than 0.
+DepartmentID should be a foreign key referencing the Departments table.
 ```sql
--- Paste your SQL code below for Question 5
+create table Employees(
+EmployeeID integer primary key,
+FirstName varchar(50) not null,
+LastName varchar (50) not null,
+Email Tect unique,
+Salary check (Salary>0),
+DepartmentID integer,
+foreign key (DepartmentID) references Departments(DepartmentID)
+);
 ```
 
 **Output:**
 
-![Output5](output.png)
+<img width="1234" height="475" alt="Screenshot 2025-09-29 133055" src="https://github.com/user-attachments/assets/8389963e-6f2e-4db4-89fd-da1dca3517f8" />
+
 
 **Question 6**
 ---
--- Paste Question 6 here
+Write an SQL query to add a new column salary of type INTEGER to the Employees table, with a CHECK constraint that ensures the value in this column is greater than 0.
 
 ```sql
--- Paste your SQL code below for Question 6
+alter table Employees
+add column salary INTEGER check (salary>0);
 ```
 
 **Output:**
 
-![Output6](output.png)
+<img width="1236" height="337" alt="Screenshot 2025-09-29 133103" src="https://github.com/user-attachments/assets/5f7d492e-58c8-4c87-a33b-c4284f157e09" />
+
+
 
 **Question 7**
 ---
--- Paste Question 7 here
+Create a table named Members with the following columns:
+
+MemberID as INTEGER
+MemberName as TEXT
+JoinDate as DATE
 
 ```sql
--- Paste your SQL code below for Question 7
+create table Members (
+MemberID INTEGER ,
+MemberName TEXT,
+JoinDate DATE
+);
 ```
 
 **Output:**
 
-![Output7](output.png)
+<img width="1233" height="419" alt="Screenshot 2025-09-29 133111" src="https://github.com/user-attachments/assets/ca3abbba-e7c4-4a78-99f5-bbb315e56818" />
 
 **Question 8**
 ---
--- Paste Question 8 here
+Write a SQL Query for inserting the below values in the table Customers
 
+ID               NAME             AGE  ADDRESS     SALARY      
+---------------  ---------------  ---  ----------  ----------  
+1                Ramesh           32   Ahmedabad   2000
+2                Khilan           25   Delhi       1500
+3                Kaushik          23   Kota        2000
+ 
 ```sql
--- Paste your SQL code below for Question 8
+Insert into Customers (ID, NAME, AGE, ADDRESS, SALARY)
+Values (1,'Ramesh', 32, 'Ahmedabad', 2000),
+(2,'Khilan', 25, 'Delhi', 1500),
+(3,'Kaushik', 23, 'Kota', 2000);
 ```
 
 **Output:**
 
-![Output8](output.png)
+<img width="1232" height="329" alt="Screenshot 2025-09-29 133118" src="https://github.com/user-attachments/assets/64fc794c-6476-4381-976a-177e00d10959" />
+
 
 **Question 9**
 ---
--- Paste Question 9 here
+Create a table named Invoices with the following constraints:
 
+InvoiceID as INTEGER should be the primary key.
+InvoiceDate as DATE.
+DueDate as DATE should be greater than the InvoiceDate.
+Amount as REAL should be greater than 0.
 ```sql
--- Paste your SQL code below for Question 9
+create table Invoices(
+InvoiceID INTEGER primary key,
+InvoiceDate DATE,
+DueDate DATE check( DueDate > InvoiceDate),
+Amount REAL check (Amount>0));
 ```
 
 **Output:**
 
-![Output9](output.png)
+<img width="1231" height="327" alt="Screenshot 2025-09-29 133128" src="https://github.com/user-attachments/assets/bd8d150d-1c23-4a75-ab18-5bfc8921e763" />
 
 **Question 10**
 ---
--- Paste Question 10 here
-
+Insert a new product with ProductID 101, Name Laptop, Category Electronics, Price 1500, and Stock 50 into the Products table.
 ```sql
--- Paste your SQL code below for Question 10
+insert into Products ('ProductID', 'Name', 'Category', 'Price', 'Stock') values (101, 'Laptop', 'Electronics', 1500, 50);
 ```
 
 **Output:**
 
-![Output10](output.png)
+<img width="1252" height="282" alt="Screenshot 2025-09-29 133141" src="https://github.com/user-attachments/assets/64d0d463-cf06-4b27-881c-fb2f102bf8e6" />
+
 
 
 ## RESULT
