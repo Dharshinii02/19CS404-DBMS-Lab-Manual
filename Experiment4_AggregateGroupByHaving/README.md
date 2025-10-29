@@ -38,123 +38,201 @@ HAVING condition;
 
 **Question 1**
 --
--- Paste Question 1 here
+How many prescriptions were written in each frequency category (e.g., once daily, twice daily)?
+
+Sample tablePrescriptions Table
+
+
 
 ```sql
--- Paste your SQL code below for Question 1
+select Frequency,
+COUNT(PrescriptionID) AS
+TotalPrescriptions
+From Prescriptions
+group by Frequency;
 ```
 
 **Output:**
 
-![Output1](output.png)
+<img width="1188" height="588" alt="Screenshot 2025-10-29 113616" src="https://github.com/user-attachments/assets/4f70186e-e437-4dc7-9ab6-27334ef7a783" />
+
 
 **Question 2**
 ---
--- Paste Question 2 here
+What is the most common diagnosis among patients?
 
 ```sql
--- Paste your SQL code below for Question 2
+select Diagnosis,COUNT(RecordId) as
+DiagnosisCount
+from MedicalRecords
+group by Diagnosis
+order by DiagnosisCount DESC
+limit 1;
 ```
 
 **Output:**
 
-![Output2](output.png)
+<img width="964" height="353" alt="Screenshot 2025-10-29 113623" src="https://github.com/user-attachments/assets/ba6fe67e-c322-42fa-944b-6cce02c33fd6" />
+
 
 **Question 3**
 ---
--- Paste Question 3 here
+How many medical records were created in each month?
 
 ```sql
--- Paste your SQL code below for Question 3
+select 
+     STRFTIME('%Y-%m',Date) as Month,
+     COUNT(RecordID) as TotalRecords
+from MedicalRecords
+Group by Month;
 ```
 
 **Output:**
 
-![Output3](output.png)
+<img width="1016" height="491" alt="Screenshot 2025-10-29 113628" src="https://github.com/user-attachments/assets/cad8b814-9a7a-4717-bb7f-61b8c141abe8" />
+
 
 **Question 4**
 ---
--- Paste Question 4 here
+Write a SQL query to find the youngest employee in the company?
 
+Table: employee
+
+name        type
+----------  ----------
+id          INTEGER
+name        TEXT
+age         INTEGER
+city        TEXT
+income      INTEGER
 ```sql
--- Paste your SQL code below for Question 4
+select name as Employee_Name,age as
+Age
+from employee
+order by age ASC
+limit 1;
 ```
 
 **Output:**
 
-![Output4](output.png)
+<img width="962" height="379" alt="Screenshot 2025-10-29 113634" src="https://github.com/user-attachments/assets/573f40f7-3f24-4dc3-a5c2-a0358bc5a9c2" />
+
 
 **Question 5**
 ---
--- Paste Question 5 here
+Write a SQL query to calculate total purchase amount of all orders. Return total purchase amount.
+
+Sample table: orders
+
+ord_no      purch_amt   ord_date    customer_id  salesman_id
+
+----------  ----------  ----------  -----------  -----------
+
+70001       150.5       2012-10-05  3005         5002
+
+70009       270.65      2012-09-10  3001         5005
+
+70002       65.26       2012-10-05  3002         5001
 
 ```sql
--- Paste your SQL code below for Question 5
+select SUM(purch_amt) as TOTAL
+FROM orders;
 ```
 
 **Output:**
 
-![Output5](output.png)
+<img width="1052" height="366" alt="Screenshot 2025-10-29 113638" src="https://github.com/user-attachments/assets/4b83ae1e-f5fc-4bb1-a46e-a2117e75d3b1" />
 
 **Question 6**
 ---
--- Paste Question 6 here
+
+Write a SQL query to find the number of employees whose age is greater than 32.
+ 
 
 ```sql
--- Paste your SQL code below for Question 6
+select COUNT(id) AS COUNT
+FROM employee
+where age>32;
 ```
 
 **Output:**
 
-![Output6](output.png)
+<img width="948" height="363" alt="Screenshot 2025-10-29 113643" src="https://github.com/user-attachments/assets/9f3b184b-a381-4e06-bc80-496ecd26412a" />
 
 **Question 7**
 ---
--- Paste Question 7 here
+Write a SQL query to find Who has the highest income among employee living in California?
+
+Table: employee
+
+name        type
+----------  ----------
+id          INTEGER
+name        TEXT
+age         INTEGER
+city        TEXT
+income      INTEGER
 
 ```sql
--- Paste your SQL code below for Question 7
+select name,max(income)
+from employee
+where city='California'
+order by income Desc
+limit 1;
 ```
 
 **Output:**
 
-![Output7](output.png)
+<img width="921" height="344" alt="Screenshot 2025-10-29 113648" src="https://github.com/user-attachments/assets/0644bc91-8730-4e09-bea3-07d3ba940176" />
+
 
 **Question 8**
 ---
--- Paste Question 8 here
-
+Which cities (addresses) in the "customer1" table have an average salary lesser than Rs. 15000
 ```sql
--- Paste your SQL code below for Question 8
+select address,AVG(salary) as "AVG(salary)"
+from customer1
+group by address
+having AVG(salary)<15000;
+
 ```
 
 **Output:**
 
-![Output8](output.png)
+<img width="1032" height="661" alt="Screenshot 2025-10-29 113659" src="https://github.com/user-attachments/assets/62e989c0-9edf-4d4d-848e-5c4e7541e958" />
+
 
 **Question 9**
 ---
--- Paste Question 9 here
+Write a SQL query to identify the cities (addresses) where the average salary is greater than Rs. 5000, as per the "customer1" table.
 
 ```sql
--- Paste your SQL code below for Question 9
+select address,AVG(salary) as "AVG(salary)"
+from customer1
+group by address
+having AVG(salary)>5000;
 ```
 
 **Output:**
 
-![Output9](output.png)
+<img width="997" height="513" alt="Screenshot 2025-10-29 113704" src="https://github.com/user-attachments/assets/5b6d5292-a82a-44ea-abd1-9f902c17cecd" />
+
 
 **Question 10**
 ---
--- Paste Question 10 here
+Write the SQL query that accomplishes the grouping of data by joining date (jdate), calculates the average work hours for each date, and excludes dates where the average work hour is not less than 10.
 
 ```sql
--- Paste your SQL code below for Question 10
+select jdate,AVG(workhour) as "AVG(workhour)"
+from employee1
+group by jdate
+having AVG(workhour)<10;
 ```
 
 **Output:**
 
-![Output10](output.png)
+<img width="809" height="411" alt="Screenshot 2025-10-29 113709" src="https://github.com/user-attachments/assets/36d6cc51-6e23-444c-97af-b822137216fd" />
+
 
 
 ## RESULT
